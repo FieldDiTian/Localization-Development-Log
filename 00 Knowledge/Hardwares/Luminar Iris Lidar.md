@@ -1,0 +1,1 @@
+`luminar_front` is the primary sensor; `luminar_left` and `luminar_right` are concatenated into the primary cloud via URDF transforms.
