@@ -9,3 +9,6 @@ https://github.com/airacingtech/race_common
 
 Dlio updates
 https://docs.google.com/document/d/1we-fFCIoRttd-Xwx8SRhC6YXqsvoyhWcs3YLd7BWDp4/edit?usp=sharing
+
+Jiayi repo
+https://github.com/dongc1/DLIO_plusplus/tree/art-jazzy#
