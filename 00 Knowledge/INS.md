@@ -1,5 +1,5 @@
 INS = **Inertial Navigation System，惯性导航系统**。
-
+把 IMU 和 GNSS/RTK 等融合起来，输出连续、平滑、带姿态/速度的导航解
 它用 **IMU** 的加速度计和陀螺仪来连续估计车辆状态：
 
 - 位置
