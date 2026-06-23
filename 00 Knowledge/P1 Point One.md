@@ -1,0 +1,2 @@
+https://docs.pointonenav.com/docs/fusion-engine-client/structs/point-one/fusion-engine/messages/timestamp
+https://pointonenav.com/insights/time-synchronization-in-gnss-ins-the-1-thing-engineers-get-wrong/
