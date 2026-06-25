@@ -1,4 +1,4 @@
-1. Fixed the IMU burst issue
+## ☱1. Fixed the IMU burst issue
 
 The current `fusion_engine_driver` still contains an arrival-timestamp path using `this->now()` in the driver code.
 
@@ -8,14 +8,14 @@ Fix:
 
 - Decoded the original payload directly from the PCAP file and reconstructed the P1 timestamps.
 - Implemented a PCAP replay node to publish PCAP messages, with an adapter subscribing to and converting them.
-
-2. Input topics for GLIM and GICP mapping were inconsistent with the ROS bag topics
+**Better use correct driver in long run**
+## ☱2. Input topics for GLIM and GICP mapping were inconsistent with the ROS bag topics
 
 Fix:
 
 - Added an adapter node to translate the original ROS bag topics into the topics expected by DLIO.
 
-3. U-turn issue during GLIM reconstruction
+## ☱3. U-turn issue during GLIM reconstruction
 
 https://drive.google.com/file/d/11K9vLuw3IPQcQJMzYOdhJ-tJi_XLOwcI/view?usp=sharing
 
@@ -33,13 +33,27 @@ These issues could cause parts of the trajectory to degrade suddenly.
 Fixed online GLIM result:  
 https://drive.google.com/file/d/1geAhkI6NNP-j-tWLmQQ93H08oLUpTF_W/view?usp=drive_link
 
-4. CUDA-based map export caused GPU memory exhaustion
-
-Using CUDA during map export would exhaust the 16 GB GPU memory and crash the system. The final solution was to use CUDA for online mapping and CPU for map export, allowing the export process to utilize the full 64 GB of system memory.
-
-5. Built a baseline using data processed with `prep_bag.py` and developed a frontend for comparison against RTK positions
+## ☱4. Built a baseline using data processed with `prep_bag.py` and developed a frontend for comparison against RTK positions
 
 https://drive.google.com/file/d/1mzVPwL7PjroBqxmkhbHT6A57xxA0BuP-/view?usp=drive_link
 
-6.Current GICP result is still depenging on RTK result. GICP Scan-Matching Acceptance rate is 4 / 3,044 = 0.1314%
+## ☱5.Current GICP(art-jazzy June 15th) result is still depenging on RTK result. GICP Scan-Matching Acceptance rate is 4 / 3,044 = 0.1314%
 Report: https://drive.google.com/file/d/1ZWlw218jEQqQskARcInlIG63XFcwmjRp/view?usp=sharing
+
+ Although the algorithm is intended for vehicle localization, the current implementation still performs full **6-DoF 3D scan-to-map matching**, meaning that the **z-axis (height)** is optimized together with the vehicle pose.
+ As a result, GICP simultaneously optimizes **z, roll, and pitch**, and may trade off an incorrect height, roll, or pitch estimate to achieve a smaller point cloud registration error, ultimately biasing the estimated vehicle pose.
+
+During GICP optimization, only correspondences within **`maxCorrespondenceDistance`** are used.
+However, the current **hard fitness gate** is computed using the **mean squared nearest-neighbor (NN) distance over all points**, including those without valid correspondences.
+Consequently, even if **90% of the scan points are already well aligned with the map**, the remaining **10% of out-of-map or distant points** can inflate the fitness score to **100 or higher**, causing otherwise valid scan matches to be rejected.
+
+30s test Results After the Fix：
+The position error of the **accepted scans** with respect to the RTK/INS ground truth is:
+
+```text
+min:  0.232 m
+p50:  0.390 m
+p90:  0.897 m
+p95:  0.948 m
+max:  1.274 m
+```
