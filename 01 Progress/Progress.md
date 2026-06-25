@@ -40,3 +40,6 @@ Using CUDA during map export would exhaust the 16 GB GPU memory and crash the sy
 5. Built a baseline using data processed with `prep_bag.py` and developed a frontend for comparison against RTK positions
 
 https://drive.google.com/file/d/1mzVPwL7PjroBqxmkhbHT6A57xxA0BuP-/view?usp=drive_link
+
+6.Current GICP result is still depenging on RTK result. GICP Scan-Matching Acceptance rate is 4 / 3,044 = 0.1314%
+Report: https://drive.google.com/file/d/1ZWlw218jEQqQskARcInlIG63XFcwmjRp/view?usp=sharing
