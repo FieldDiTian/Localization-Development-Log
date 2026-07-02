@@ -1,4 +1,4 @@
-## ☱1. Fixed the IMU burst issue
+## 1. Fixed the IMU burst issue
 
 The current `fusion_engine_driver` still contains an arrival-timestamp path using `this->now()` in the driver code.
 
@@ -9,13 +9,13 @@ Fix:
 - Decoded the original payload directly from the PCAP file and reconstructed the P1 timestamps.
 - Implemented a PCAP replay node to publish PCAP messages, with an adapter subscribing to and converting them.
 **Better use correct driver in long run**
-## ☱2. Input topics for GLIM and GICP mapping were inconsistent with the ROS bag topics
+## 2. Input topics for GLIM and GICP mapping were inconsistent with the ROS bag topics
 
 Fix:
 
 - Added an adapter node to translate the original ROS bag topics into the topics expected by DLIO.
 
-## ☱3. U-turn issue during GLIM reconstruction
+## 3. U-turn issue during GLIM reconstruction
 
 https://drive.google.com/file/d/11K9vLuw3IPQcQJMzYOdhJ-tJi_XLOwcI/view?usp=sharing
 
@@ -33,11 +33,11 @@ These issues could cause parts of the trajectory to degrade suddenly.
 Fixed online GLIM result:  
 https://drive.google.com/file/d/1geAhkI6NNP-j-tWLmQQ93H08oLUpTF_W/view?usp=drive_link
 
-## ☱4. Built a baseline using data processed with `prep_bag.py` and developed a frontend for comparison against RTK positions
+## 4. Built a baseline using data processed with `prep_bag.py` and developed a frontend for comparison against RTK positions
 
 https://drive.google.com/file/d/1mzVPwL7PjroBqxmkhbHT6A57xxA0BuP-/view?usp=drive_link
 
-## ☱5.Current GICP(art-jazzy June 15th) result is still depenging on RTK result. GICP Scan-Matching Acceptance rate is 4 / 3,044 = 0.1314%
+## 5.Current GICP(art-jazzy June 15th) result is still depenging on RTK result. GICP Scan-Matching Acceptance rate is 4 / 3,044 = 0.1314%
 Report: https://drive.google.com/file/d/1ZWlw218jEQqQskARcInlIG63XFcwmjRp/view?usp=sharing
 
  Although the algorithm is intended for vehicle localization, the current implementation still performs full **6-DoF 3D scan-to-map matching**, meaning that the **z-axis (height)** is optimized together with the vehicle pose.

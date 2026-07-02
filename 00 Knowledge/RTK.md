@@ -1,4 +1,4 @@
-### ☱**RTK（Real-Time Kinematic，实时动态定位）**
+### **RTK（Real-Time Kinematic，实时动态定位）**
 
 RTK 是一种高精度 GNSS 定位技术。
 
